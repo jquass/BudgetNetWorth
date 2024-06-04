@@ -1,7 +1,6 @@
 package com.jonquass.budgetnetworth.service.config;
 
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.jonquass.budgetnetworth.data.BudgetNetWorthDataModule;
 import com.jonquass.budgetnetworth.data.jdbi.GuiceJdbi;
@@ -11,15 +10,10 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
-import org.jdbi.v3.core.Jdbi;
 
 import javax.sql.DataSource;
 
 public class BudgetNetWorthApplication extends Application<BudgetNetWorthConfiguration> {
-
-    @Inject
-    @GuiceJdbi
-    private Jdbi jdbi;
 
     private static Injector injector;
 

@@ -8,6 +8,29 @@
             href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
     />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+          $("form").submit(function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const formDataObj = {};
+            formData.forEach((value, key) => (formDataObj[key] = value));
+
+            $.ajax({
+              type: "POST",
+              url: "account",
+              data: formDataObj,
+              dataType: "json",
+            }).done(function (data) {
+              console.log(data);
+              $("form")[0].reset();
+            });
+          });
+
+        });
+    </script>
 </head>
 
 <body>
@@ -17,7 +40,7 @@
 
 <div class="col-sm-6 col-sm-offset-3">
     <h3>Create New Account</h3>
-    <form method="get" action="/account" target="_self" enctype="text/plain">
+    <form method="POST" action="account">
         <div id="name-group" class="form-group">
             <label for="account_name">Account Name</label>
             <input
@@ -34,7 +57,6 @@
         </button>
     </form>
 </div>
-
 
 </body>
 </html>

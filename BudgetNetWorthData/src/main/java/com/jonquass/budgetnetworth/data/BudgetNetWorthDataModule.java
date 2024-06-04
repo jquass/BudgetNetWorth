@@ -8,8 +8,6 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class BudgetNetWorthDataModule extends AbstractJdbiDefinitionModule {
 
-    public static final String DATA_SOURCE = "data";
-
     @Inject
     public BudgetNetWorthDataModule() {
         super(GuiceJdbi.class);

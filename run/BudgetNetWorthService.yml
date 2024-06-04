@@ -1,1 +1,2 @@
-health:
+logging:
+  level: INFO

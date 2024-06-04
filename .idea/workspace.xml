@@ -5,34 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c2e6c5a-49e1-4687-9729-aa21d3528be3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/BNWStyle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountEggIF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountFields.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountIF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/html/HtmlReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/GuiceJdbi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountDbManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/DashboardResource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env_example" beforeDir="false" afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" beforeDir="false" afterPath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,25 +47,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BudgetNetWorthApplication.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Maven.BudgetNetWorth [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BudgetNetWorth [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.BudgetNetWorth [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/IntelliJ/BudgetNetWorth&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BudgetNetWorthApplication.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Maven.BudgetNetWorth [clean].executor": "Run",
+    "Maven.BudgetNetWorth [package].executor": "Run",
+    "Maven.BudgetNetWorth [verify].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "jquass/create-accounts",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "E:/IntelliJ/BudgetNetWorth",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\IntelliJ\BudgetNetWorth\BudgetNetWorthService\src\main\resources" />
