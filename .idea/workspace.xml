@@ -4,31 +4,134 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c2e6c5a-49e1-4687-9729-aa21d3528be3" name="Changes" comment="" />
+    <list default="true" id="8c2e6c5a-49e1-4687-9729-aa21d3528be3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/BNWStyle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountEggIF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountFields.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthCore/src/main/java/com/jonquass/budgetnetworth/core/account/AccountIF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/html/HtmlReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/GuiceJdbi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountDbManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/DashboardResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2hLY6JhUQUpWZDcMp8hTeQ2PLlf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BudgetNetWorthApplication.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Maven.BudgetNetWorth [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BudgetNetWorth [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.BudgetNetWorth [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/IntelliJ/BudgetNetWorth&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\IntelliJ\BudgetNetWorth\BudgetNetWorthService\src\main\resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.jonquass.budgetnetworth.core" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jonquass.budgetnetworth.service.config" />
+      <recent name="com.jonquass.budgetnetworth.service.resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BudgetNetWorthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="envFilePaths">
+        <option value="$PROJECT_DIR$/.env" />
+      </option>
+      <option name="MAIN_CLASS_NAME" value="com.jonquass.budgetnetworth.service.config.BudgetNetWorthApplication" />
+      <module name="BudgetNetWorthService" />
+      <option name="PROGRAM_PARAMETERS" value="server run/BudgetNetWorthService.yml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jonquass.budgetnetworth.service.config.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BudgetNetWorthApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
