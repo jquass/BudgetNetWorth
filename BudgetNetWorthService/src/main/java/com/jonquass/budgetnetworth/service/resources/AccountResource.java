@@ -9,7 +9,9 @@ import jakarta.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Path("/account")
+import java.util.List;
+
+@Path("/accounts")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
@@ -31,6 +33,11 @@ public class AccountResource {
         Account account = accountDbManager.insert(accountEgg);
         LOG.info("Created Account ID: {}", account.getId());
         return account;
+    }
+
+    @GET
+    public List<Account> getAccounts() {
+        return accountDbManager.list();
     }
 
 }

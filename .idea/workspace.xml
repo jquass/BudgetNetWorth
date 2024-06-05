@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c2e6c5a-49e1-4687-9729-aa21d3528be3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env_example" beforeDir="false" afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/BudgetNetWorthDataModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/config/BudgetNetWorthApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountDbManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthData/src/main/java/com/jonquass/budgetnetworth/data/jdbi/account/AccountDbManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/java/com/jonquass/budgetnetworth/service/resources/AccountResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetNetWorthService/src/main/resources/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" beforeDir="false" afterPath="$PROJECT_DIR$/run/BudgetNetWorthService.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

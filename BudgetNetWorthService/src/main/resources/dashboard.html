@@ -20,27 +20,46 @@
 
             $.ajax({
               type: "POST",
-              url: "account",
+              url: event.target.action,
               data: formDataObj,
               dataType: "json",
-            }).done(function (data) {
-              console.log(data);
-              $("form")[0].reset();
+              success: function (response) {
+                event.target.reset();
+                var trHtml = '<tr id ="' + response.id +  '"><td>' + response.accountName + '</td><td>' + response.id + '</td></tr>';
+                $('#accounts_table').append(trHtml);
+              }
             });
+
           });
 
         });
     </script>
+    <script>
+        function populateAccounts() {
+            $.ajax({
+              type: "GET",
+              url: "accounts",
+              dataType: "json",
+              success: function (response) {
+                var trHtml = '';
+                $.each(response, function (i, item) {
+                    trHtml += '<tr id ="' + item.id +  '"><td>' + item.accountName + '</td><td>' + item.id + '</td></tr>';
+                });
+                $('#accounts_table').append(trHtml);
+              }
+            });
+        }
+    </script>
 </head>
 
-<body>
+<body onload="populateAccounts();">
 <header role="banner">
     <h1>Dashboard</h1>
 </header>
 
 <div class="col-sm-6 col-sm-offset-3">
     <h3>Create New Account</h3>
-    <form method="POST" action="account">
+    <form method="POST" action="accounts">
         <div id="name-group" class="form-group">
             <label for="account_name">Account Name</label>
             <input
@@ -56,6 +75,19 @@
             Create
         </button>
     </form>
+    <h3>Accounts</h3>
+    <table id="accounts_table" class="table">
+        <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>ID</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
 </div>
 
 </body>

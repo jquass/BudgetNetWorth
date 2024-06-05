@@ -7,6 +7,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.List;
+
 @Singleton
 public class AccountDbManager {
 
@@ -30,5 +32,13 @@ public class AccountDbManager {
                     .mapTo(Account.class)
                     .one();
         });
+    }
+
+    public List<Account> list() {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM accounts ORDER BY id ASC")
+                        .mapTo(Account.class)
+                        .list()
+        );
     }
 }
