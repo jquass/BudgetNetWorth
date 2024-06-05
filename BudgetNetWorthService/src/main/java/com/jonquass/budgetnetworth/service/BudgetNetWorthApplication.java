@@ -1,9 +1,10 @@
-package com.jonquass.budgetnetworth.service.config;
+package com.jonquass.budgetnetworth.service;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.jonquass.budgetnetworth.data.BudgetNetWorthDataModule;
 import com.jonquass.budgetnetworth.data.jdbi.GuiceJdbi;
+import com.jonquass.budgetnetworth.service.config.BudgetNetWorthConfiguration;
 import com.jonquass.budgetnetworth.service.resources.AccountResource;
 import com.jonquass.budgetnetworth.service.resources.DashboardResource;
 import com.mysql.cj.jdbc.MysqlDataSource;

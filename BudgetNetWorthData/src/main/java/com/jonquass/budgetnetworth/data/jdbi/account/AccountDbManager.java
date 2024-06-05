@@ -1,5 +1,6 @@
 package com.jonquass.budgetnetworth.data.jdbi.account;
 
+import com.hubspot.algebra.Result;
 import com.jonquass.budgetnetworth.core.account.Account;
 import com.jonquass.budgetnetworth.core.account.AccountEgg;
 import com.jonquass.budgetnetworth.data.jdbi.GuiceJdbi;
@@ -20,25 +21,19 @@ public class AccountDbManager {
     }
 
     public Account insert(AccountEgg accountEgg) {
-        return jdbi.withHandle(handle ->
-        {
-            long id = handle.createUpdate("INSERT INTO accounts (account_name) VALUES (:account_name)")
-                    .bind("account_name", accountEgg.getAccountName())
-                    .executeAndReturnGeneratedKeys("id")
-                    .mapTo(Long.class)
-                    .one();
-            return handle.createQuery("SELECT * FROM accounts WHERE id = :id")
-                    .bind("id", id)
-                    .mapTo(Account.class)
-                    .one();
+        return jdbi.withExtension(AccountDao.class, dao -> {
+            long id = dao.insert(accountEgg.getAccountName());
+            return dao.get(id).orElseThrow();
         });
     }
 
-    public List<Account> list() {
-        return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM accounts ORDER BY id ASC")
-                        .mapTo(Account.class)
-                        .list()
-        );
+    public List<Account> list(int limit) {
+        return jdbi.withExtension(AccountDao.class, dao -> dao.list(limit));
+    }
+
+    public Result<String, String> delete(long id) {
+        return jdbi.withExtension(AccountDao.class, dao -> dao.delete(id)) == 1
+                ? Result.ok("Successfully deleted id " + id)
+                : Result.err("Failed to delete id " + id);
     }
 }
