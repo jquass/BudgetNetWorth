@@ -1,6 +1,7 @@
 package com.jonquass.budgetnetworth.service.resources;
 
 import com.google.inject.Inject;
+import com.hubspot.algebra.Result;
 import com.jonquass.budgetnetworth.core.account.Account;
 import com.jonquass.budgetnetworth.core.account.AccountEgg;
 import com.jonquass.budgetnetworth.data.jdbi.account.AccountDbManager;
@@ -36,8 +37,18 @@ public class AccountResource {
     }
 
     @GET
-    public List<Account> getAccounts() {
-        return accountDbManager.list();
+    public List<Account> getAccounts(
+            @QueryParam("limit")
+            @DefaultValue("10") int limit,
+            @QueryParam("offset") long offset
+    ) {
+        return accountDbManager.list(limit);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Result<String, String> delete(@PathParam("id") long id) {
+        return accountDbManager.delete(id);
     }
 
 }

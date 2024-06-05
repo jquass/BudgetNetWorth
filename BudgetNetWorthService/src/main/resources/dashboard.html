@@ -25,7 +25,7 @@
               dataType: "json",
               success: function (response) {
                 event.target.reset();
-                var trHtml = '<tr id ="' + response.id +  '"><td>' + response.accountName + '</td><td>' + response.id + '</td></tr>';
+                var trHtml = '<tr id ="' + response.id +  '"><td>' + response.accountName + '</td><td><button type="button" value="' + response.id + '" onclick="deleteAccount(this.value);">Delete</button></td></tr>';
                 $('#accounts_table').append(trHtml);
               }
             });
@@ -43,13 +43,26 @@
               success: function (response) {
                 var trHtml = '';
                 $.each(response, function (i, item) {
-                    trHtml += '<tr id ="' + item.id +  '"><td>' + item.accountName + '</td><td>' + item.id + '</td></tr>';
+                    trHtml += '<tr id ="' + item.id +  '"><td>' + item.accountName + '</td><td><button type="button" value="' + item.id + '" onclick="deleteAccount(this.value);">Delete</button></td></tr>';
                 });
                 $('#accounts_table').append(trHtml);
               }
             });
         }
     </script>
+    <script>
+        function deleteAccount(id) {
+            $.ajax({
+              type: "DELETE",
+              url: "accounts/" + id,
+              dataType: "json",
+              success: function (response) {
+                $('#' + id).remove();
+              }
+            });
+        }
+    </script>
+
 </head>
 
 <body onload="populateAccounts();">
@@ -80,7 +93,7 @@
         <thead>
         <tr>
             <th>Account Name</th>
-            <th>ID</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
