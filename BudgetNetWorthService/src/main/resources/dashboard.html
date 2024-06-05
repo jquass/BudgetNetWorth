@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BNW: Dashboard</title>
+    <link
+            rel="stylesheet"
+            href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+    />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+          $("form").submit(function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const formDataObj = {};
+            formData.forEach((value, key) => (formDataObj[key] = value));
+
+            $.ajax({
+              type: "POST",
+              url: event.target.action,
+              data: formDataObj,
+              dataType: "json",
+              success: function (response) {
+                event.target.reset();
+                var trHtml = '<tr id ="' + response.id +  '"><td>' + response.accountName + '</td><td>' + response.id + '</td></tr>';
+                $('#accounts_table').append(trHtml);
+              }
+            });
+
+          });
+
+        });
+    </script>
+    <script>
+        function populateAccounts() {
+            $.ajax({
+              type: "GET",
+              url: "accounts",
+              dataType: "json",
+              success: function (response) {
+                var trHtml = '';
+                $.each(response, function (i, item) {
+                    trHtml += '<tr id ="' + item.id +  '"><td>' + item.accountName + '</td><td>' + item.id + '</td></tr>';
+                });
+                $('#accounts_table').append(trHtml);
+              }
+            });
+        }
+    </script>
+</head>
+
+<body onload="populateAccounts();">
+<header role="banner">
+    <h1>Dashboard</h1>
+</header>
+
+<div class="col-sm-6 col-sm-offset-3">
+    <h3>Create New Account</h3>
+    <form method="POST" action="accounts">
+        <div id="name-group" class="form-group">
+            <label for="account_name">Account Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="account_name"
+                    name="account_name"
+                    placeholder="Account Name"
+            />
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Create
+        </button>
+    </form>
+    <h3>Accounts</h3>
+    <table id="accounts_table" class="table">
+        <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>ID</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>
