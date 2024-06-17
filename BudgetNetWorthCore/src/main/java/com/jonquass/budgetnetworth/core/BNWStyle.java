@@ -1,7 +1,6 @@
 package com.jonquass.budgetnetworth.core;
 
 import org.immutables.value.Value;
-import org.immutables.value.Value.Immutable;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,6 +15,6 @@ import java.lang.annotation.Target;
         typeAbstract = {"*IF"}, // 'Abstract' prefix will be detected and trimmed
         typeImmutable = "*", // No prefix or suffix for generated immutable type
         visibility = Value.Style.ImplementationVisibility.PUBLIC, // Generated class will be always public
-        defaults = @Immutable(copy = false)) // Disable copy methods by default
+        protectedNoargConstructor = true)
 public @interface BNWStyle {
 }

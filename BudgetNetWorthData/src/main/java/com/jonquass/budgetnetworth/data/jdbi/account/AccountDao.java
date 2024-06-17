@@ -18,7 +18,7 @@ public interface AccountDao {
     @SqlQuery("SELECT * FROM accounts WHERE id = :id")
     Optional<Account> get(@Bind("id") long id);
 
-    @SqlQuery("SELECT * FROM accounts ORDER BY id ASC LIMIT :limit")
+    @SqlQuery("SELECT * FROM accounts ORDER BY id LIMIT :limit")
     List<Account> list(@Bind("limit") int limit);
 
     @SqlUpdate("DELETE FROM accounts WHERE id = :id")
