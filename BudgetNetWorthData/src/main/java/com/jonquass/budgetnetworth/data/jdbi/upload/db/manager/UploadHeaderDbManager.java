@@ -33,13 +33,16 @@ public class UploadHeaderDbManager {
         return jdbi.withExtension(UploadHeaderDao.class, dao -> dao.getAllForUploadId(uploadId));
     }
 
-    public void mapHeaders(long transactionDateHeaderId,
-                           long memoHeaderId,
-                           long debitHeaderId) {
+    public void mapHeader(long headerId, UploadHeaderType uploadHeaderType) {
         jdbi.withExtension(UploadHeaderDao.class, dao -> {
-            dao.setHeaderType(transactionDateHeaderId, UploadHeaderType.TRANSACTION_DATE);
-            dao.setHeaderType(memoHeaderId, UploadHeaderType.MEMO);
-            dao.setHeaderType(debitHeaderId, UploadHeaderType.DEBIT_HEADER);
+            dao.setHeaderType(headerId, uploadHeaderType);
+            return null;
+        });
+    }
+
+    public void unmapHeadersForUpload(long uploadId) {
+        jdbi.withExtension(UploadHeaderDao.class, dao -> {
+            dao.unmapHeadersForUpload(uploadId);
             return null;
         });
     }

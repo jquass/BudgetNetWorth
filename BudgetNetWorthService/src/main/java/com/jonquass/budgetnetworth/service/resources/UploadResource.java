@@ -33,10 +33,17 @@ public class UploadResource {
     @POST
     @Path("/{id}/map-headers")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void mapHeadersAjax(@PathParam("id") long uploadId,
-                               @FormParam("transaction-date-header") long transactionDateHeaderId,
-                               @FormParam("memo-header") long memoHeaderId,
-                               @FormParam("debit-header") long debitHeaderId) {
-        uploadManager.mapHeaders(uploadId, transactionDateHeaderId, memoHeaderId, debitHeaderId);
+    public Optional<UploadContext> mapHeadersAjax(@PathParam("id") long uploadId,
+                                                  @FormParam("transaction-date-header") long transactionDateHeaderId,
+                                                  @FormParam("memo-header") long memoHeaderId,
+                                                  @FormParam("debit-header") long debitHeaderId,
+                                                  @FormParam("credit-header") Optional<Long> creditHeaderId) {
+        return uploadManager.mapHeaders(uploadId, transactionDateHeaderId, memoHeaderId, debitHeaderId, creditHeaderId);
+    }
+
+    @POST
+    @Path("/{id}/finalize")
+    public Optional<UploadContext> finalizeUpload(@PathParam("id") long uploadId) {
+        return uploadManager.finalizeUpload(uploadId);
     }
 }

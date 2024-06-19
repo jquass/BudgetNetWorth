@@ -16,7 +16,12 @@
         }
     </style>
     <script type="text/javascript">
-        const headerInputs = ['#transaction-date-header', '#memo-header', '#debit-header'];
+        const headerInputs = [
+            '#transaction-date-header',
+            '#memo-header',
+            '#debit-header',
+            '#credit-header'
+        ];
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -66,19 +71,22 @@
                     success: function (response) {
                         event.target.reset();
 
-                        console.log(response);
-
-
                         response.uploadHeaders.forEach(function (item) {
                             headerInputs.forEach(function (headerInput) {
                                 $(headerInput).append(
                                     $('<option></option>').val(item.id).html(item.value)
                                 );
+                                $(headerInput + ' option').each(function () {
+                                    if (this.defaultSelected) {
+                                        this.selected = true;
+                                        return false;
+                                    }
+                                });
                             });
                         });
 
-                        let mapHeaders = $("#map-headers");
-                        mapHeaders.attr('action', "uploads/" + response.uploadId + "/map-headers");
+                        $('#map-headers').attr('action', "uploads/" + response.uploadId + "/map-headers");
+                        $('#map-headers-wrapper').show();
                     }
                 });
             });
@@ -98,9 +106,36 @@
                     url: event.target.action,
                     data: formDataObj,
                     dataType: "json",
-                    success: function () {
-                        event.target.reset();
+                    success: function (response) {
 
+                        $("#review-upload-table tr").remove();
+                        response.mappedUploadRows.forEach(function (item) {
+                            const trHtml = '<tr><td>' + item.date[1] + '/' + item.date[2] + '/' + item.date[0] + '</td>' +
+                                '<td>' + item.memo + '</td><td>' + item.debit + '</td></tr>';
+                            $("#review-upload-table").append(trHtml);
+                        });
+
+
+                        $("#finalize-upload").attr('action', "uploads/" + response.uploadId + "/finalize");
+
+                        $('#finalize-upload-wrapper').show();
+                    }
+                });
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#finalize-upload").submit(function (event) {
+                event.preventDefault();
+                console.log(event);
+
+                $.ajax({
+                    type: "POST",
+                    url: event.target.action,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
                         headerInputs.forEach(function (headerInput) {
                             $(headerInput + " > option").each(function () {
                                 if (this.value) {
@@ -108,10 +143,15 @@
                                 }
                             })
                         });
+                        $("#review-upload-table tr").remove();
+                        $("#finalize-upload").attr('action', '');
+                        $('#map-headers').attr('action', '');
+                        $('#map-headers-wrapper').hide();
+                        $('#finalize-upload-wrapper').hide();
                     }
-                });
+                })
             });
-        })
+        });
     </script>
     <script type="text/javascript">
         function populateAccounts() {
@@ -120,10 +160,16 @@
                 url: "accounts",
                 dataType: "json",
                 success: function (response) {
-                    $.each(response, function (i, item) {
-                        appendAccountToAccountsTable(item);
-                        appendAccountToUploadTransactionsList(item);
-                    });
+                    if (response !== undefined && response.length >= 0) {
+                        $.each(response, function (i, item) {
+                            appendAccountToAccountsTable(item);
+                            appendAccountToUploadTransactionsList(item);
+                        });
+                        $('#upload-transactions-wrapper').show();
+                    } else {
+                        $('#upload-transactions-wrapper').hide();
+                    }
+
                 }
             });
         }
@@ -189,7 +235,6 @@
             Create
         </button>
     </form>
-
     <hr/>
 
     <h3>Accounts</h3>
@@ -205,58 +250,90 @@
         </tbody>
     </table>
 
-    <hr/>
 
-    <h3>Upload Transactions</h3>
-    <form action="accounts/transactions" enctype="multipart/form-data" id="upload-transactions" method="POST">
-        <div class="form-group" id="file-group">
-            <label for="transactions-file">CSV file: </label>
+    <div hidden id="upload-transactions-wrapper">
+        <hr/>
+        <h3>Upload Transactions</h3>
+        <form action="accounts/transactions" enctype="multipart/form-data" id="upload-transactions" method="POST">
+            <div class="form-group" id="file-group">
+                <label for="transactions-file">CSV file: </label>
+                <input accept="text/csv" id="transactions-file" name="transactions-file" required type="file"/>
+            </div>
 
-            <input accept="text/csv" id="transactions-file" name="transactions-file" required type="file"/>
-        </div>
+            <div class="form-group" id="file-account-group">
+                <label for="file-account">Account: </label>
+                <select id="file-account" name="file-account" required>
+                    <option disabled selected value> No chosen account</option>
+                </select>
+            </div>
 
-        <div class="form-group" id="file-account-group">
-            <label for="file-account">Account: </label>
-            <select id="file-account" name="file-account" required>
-                <option disabled selected value> No chosen account</option>
-            </select>
-        </div>
+            <button class="btn btn-success" type="submit">
+                Upload
+            </button>
+        </form>
+    </div>
 
-        <button class="btn btn-success" type="submit">
-            Upload
-        </button>
+    <div hidden id="map-headers-wrapper">
+        <hr/>
+        <h3>Select Headers</h3>
+        <form id="map-headers" method="POST">
+            <div class="form-group" id="transaction-date-header-group">
+                <label for="transaction-date-header">Transaction Date Header: </label>
+                <select id="transaction-date-header" name="transaction-date-header" required>
+                    <option disabled selected></option>
+                </select>
+            </div>
 
-    </form>
+            <div class="form-group" id="memo-header-group">
+                <label for="memo-header">Memo Header: </label>
+                <select id="memo-header" name="memo-header" required>
+                    <option disabled selected></option>
+                </select>
+            </div>
 
-    <hr/>
+            <div class="form-group" id="debit-group">
+                <label for="debit-header">Amount/Deposit Header: </label>
+                <select id="debit-header" name="debit-header" required>
+                    <option disabled selected></option>
+                </select>
+            </div>
 
-    <h3>Map Upload Headers</h3>
-    <form id="map-headers" method="POST">
-        <div class="form-group" id="transaction-date-header-group">
-            <label for="transaction-date-header">Transaction Date Header: </label>
-            <select id="transaction-date-header" name="transaction-date-header" required>
-                <option disabled selected value> -- Choose Header --</option>
-            </select>
-        </div>
+            <div class="form-group" id="credit-group">
+                <label for="credit-header">Credit/Withdrawal Header <i>(opt.)</i>: </label>
+                <select id="credit-header" name="credit-header">
+                    <option disabled selected></option>
+                </select>
+            </div>
 
-        <div class="form-group" id="memo-header-group">
-            <label for="memo-header">Memo Header: </label>
-            <select id="memo-header" name="memo-header" required>
-                <option disabled selected value> -- Choose Header --</option>
-            </select>
-        </div>
+            <button class="btn btn-success" type="submit">
+                Apply
+            </button>
+        </form>
+    </div>
 
-        <div class="form-group" id="debit-group">
-            <label for="debit-header">Debit Header: </label>
-            <select id="debit-header" name="debit-header" required>
-                <option disabled selected value> -- Choose Header --</option>
-            </select>
-        </div>
+    <div hidden id="finalize-upload-wrapper">
+        <hr/>
+        <h3>Review Upload</h3>
+        <form id="finalize-upload" method="POST">
+            <button class="btn btn-success" type="submit">
+                Upload
+            </button>
+        </form>
+        <table class="table" id="review-upload-table">
+            <thead>
+            <tr>
+                <th>Transaction Date</th>
+                <th>Memo</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
 
-        <button class="btn btn-success" type="submit">
-            Confirm Mappings
-        </button>
-    </form>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 
 </body>

@@ -4,4 +4,5 @@ public enum UploadHeaderType {
     TRANSACTION_DATE,
     MEMO,
     DEBIT_HEADER,
+    CREDIT_HEADER,
 }
