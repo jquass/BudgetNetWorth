@@ -25,4 +25,7 @@ public interface UploadHeaderDao {
 
     @SqlUpdate("UPDATE upload_headers SET type = :type WHERE id = :id")
     void setHeaderType(@Bind("id") long id, @Bind("type") UploadHeaderType type);
+
+    @SqlUpdate("UPDATE upload_headers SET type = null WHERE upload_id = :upload_id")
+    void unmapHeadersForUpload(@Bind("upload_id") long uploadId);
 }

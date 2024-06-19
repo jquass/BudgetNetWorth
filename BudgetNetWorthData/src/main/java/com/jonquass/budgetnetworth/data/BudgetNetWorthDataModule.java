@@ -3,6 +3,7 @@ package com.jonquass.budgetnetworth.data;
 import com.google.inject.Inject;
 import com.jonquass.budgetnetworth.data.jdbi.GuiceJdbi;
 import com.jonquass.budgetnetworth.data.jdbi.account.AccountMapper;
+import com.jonquass.budgetnetworth.data.jdbi.transaction.TransactionMapper;
 import com.jonquass.budgetnetworth.data.jdbi.upload.mapper.UploadHeaderMapper;
 import com.jonquass.budgetnetworth.data.jdbi.upload.mapper.UploadMapper;
 import com.jonquass.budgetnetworth.data.jdbi.upload.mapper.UploadRowMapper;
@@ -24,6 +25,7 @@ public class BudgetNetWorthDataModule extends AbstractJdbiDefinitionModule {
         bindRowMapper().to(UploadMapper.class);
         bindRowMapper().to(UploadRowMapper.class);
         bindRowMapper().to(UploadHeaderMapper.class);
+        bindRowMapper().to(TransactionMapper.class);
     }
 
 }

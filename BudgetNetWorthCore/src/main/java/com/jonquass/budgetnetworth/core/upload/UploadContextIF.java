@@ -2,6 +2,7 @@ package com.jonquass.budgetnetworth.core.upload;
 
 import com.jonquass.budgetnetworth.core.BNWStyle;
 import com.jonquass.budgetnetworth.core.upload.header.UploadHeader;
+import com.jonquass.budgetnetworth.core.upload.row.MappedUploadRow;
 import com.jonquass.budgetnetworth.core.upload.row.UploadRow;
 import org.immutables.value.Value;
 
@@ -16,6 +17,8 @@ public interface UploadContextIF {
     List<UploadHeader> getUploadHeaders();
 
     List<UploadRow> getUploadRows();
+
+    List<MappedUploadRow> getMappedUploadRows();
 
     @Value.Lazy
     default long getUploadId() {
