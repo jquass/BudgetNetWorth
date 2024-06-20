@@ -21,9 +21,7 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Singleton
 public class UploadManager {
@@ -65,18 +63,15 @@ public class UploadManager {
             mappedUploadRows = List.of();
         } else {
             mappedUploadRows = new ArrayList<>();
+            Map<UploadHeaderType, Integer> headerMap = new HashMap<>(uploadHeaders.size());
             int headerIndex = 0;
-            int memoIndex = 0;
-            int transactionDateIndex = 0;
-            int debitIndex = 0;
-            Optional<Integer> creditIndex = Optional.empty();
             for (UploadHeader uploadHeader : uploadHeaders) {
                 if (uploadHeader.getType().isPresent()) {
                     switch (uploadHeader.getType().orElseThrow()) {
-                        case MEMO -> memoIndex = headerIndex;
-                        case TRANSACTION_DATE -> transactionDateIndex = headerIndex;
-                        case DEBIT_HEADER -> debitIndex = headerIndex;
-                        case CREDIT_HEADER -> creditIndex = Optional.of(headerIndex);
+                        case MEMO -> headerMap.put(UploadHeaderType.MEMO, headerIndex);
+                        case TRANSACTION_DATE -> headerMap.put(UploadHeaderType.TRANSACTION_DATE, headerIndex);
+                        case DEBIT_HEADER -> headerMap.put(UploadHeaderType.DEBIT_HEADER, headerIndex);
+                        case CREDIT_HEADER -> headerMap.put(UploadHeaderType.CREDIT_HEADER, headerIndex);
                     }
                 }
                 headerIndex++;
@@ -89,24 +84,16 @@ public class UploadManager {
 
                 MappedUploadRow.Builder mappedUploadRowBuilder = MappedUploadRow.builder();
                 for (int i = 0; i < columns.size(); i++) {
-                    if (memoIndex == i) {
+                    if (headerMap.get(UploadHeaderType.MEMO) == i) {
                         mappedUploadRowBuilder.setMemo(columns.get(i));
-                    } else if (transactionDateIndex == i) {
+                    } else if (headerMap.get(UploadHeaderType.TRANSACTION_DATE) == i) {
                         mappedUploadRowBuilder.setDate(LocalDate.parse(columns.get(i), df));
-                    } else if (debitIndex == i && !columns.get(i).isEmpty()) {
-                        StringBuilder debit = new StringBuilder(columns.get(i));
-                        while (!debit.toString().contains(".")) {
-                            i++;
-                            debit.append(columns.get(i));
-                        }
-                        mappedUploadRowBuilder.setDebit(getBigDecimalFromCol(debit.toString()));
-                    } else if (creditIndex.isPresent() && creditIndex.get() == i && !columns.get(i).isEmpty()) {
-                        StringBuilder debit = new StringBuilder(columns.get(i));
-                        while (!debit.toString().contains(".")) {
-                            i++;
-                            debit.append(columns.get(i));
-                        }
-                        BigDecimal creditValue = getBigDecimalFromCol(debit.toString());
+                    } else if (headerMap.get(UploadHeaderType.DEBIT_HEADER) == i && !columns.get(i).isEmpty()) {
+                        String debit = buildDebit(columns, i, headerMap);
+                        mappedUploadRowBuilder.setDebit(getBigDecimalFromCol(debit));
+                    } else if (headerMap.containsKey(UploadHeaderType.CREDIT_HEADER) && headerMap.get(UploadHeaderType.CREDIT_HEADER) == i && !columns.get(i).isEmpty()) {
+                        String debit = buildDebit(columns, i, headerMap);
+                        BigDecimal creditValue = getBigDecimalFromCol(debit);
                         mappedUploadRowBuilder.setDebit(creditValue.negate());
                     }
                 }
@@ -121,6 +108,15 @@ public class UploadManager {
                 .setMappedUploadRows(mappedUploadRows)
                 .build();
         return Optional.of(uploadContext);
+    }
+
+    private String buildDebit(List<String> columns, int i, Map<UploadHeaderType, Integer> headerMap) {
+        StringBuilder debit = new StringBuilder(columns.get(i));
+        while (!debit.toString().contains(".")) {
+            i++;
+            debit.append(columns.get(i));
+        }
+        return debit.toString();
     }
 
     public Optional<UploadContext> mapHeaders(long uploadId,
