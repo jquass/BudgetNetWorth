@@ -7,6 +7,7 @@ import com.jonquass.budgetnetworth.data.jdbi.GuiceJdbi;
 import com.jonquass.budgetnetworth.service.config.BudgetNetWorthConfiguration;
 import com.jonquass.budgetnetworth.service.resources.AccountResource;
 import com.jonquass.budgetnetworth.service.resources.DashboardResource;
+import com.jonquass.budgetnetworth.service.resources.TransactionsResource;
 import com.jonquass.budgetnetworth.service.resources.UploadResource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import io.dropwizard.core.Application;
@@ -47,6 +48,7 @@ public class BudgetNetWorthApplication extends Application<BudgetNetWorthConfigu
         environment.jersey().register(injector.getInstance(DashboardResource.class));
         environment.jersey().register(injector.getInstance(AccountResource.class));
         environment.jersey().register(injector.getInstance(UploadResource.class));
+        environment.jersey().register(injector.getInstance(TransactionsResource.class));
     }
 
 }

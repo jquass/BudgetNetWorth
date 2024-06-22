@@ -5,8 +5,6 @@ import com.jonquass.budgetnetworth.data.jdbi.upload.UploadManager;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -14,8 +12,6 @@ import java.util.Optional;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UploadResource {
-
-    private static final Logger LOG = LoggerFactory.getLogger(UploadResource.class);
 
     private final UploadManager uploadManager;
 

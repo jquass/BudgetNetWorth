@@ -24,14 +24,6 @@
             display: inline;
             margin-left: 5px;
         }
-
-        ul.accents li#first {
-            margin-left: 10px;
-        }
-
-        ul.accents li#last {
-            margin: 1px 0 0 15px;
-        }
     </style>
     <script type="text/javascript">
         const headerInputs = [
@@ -125,17 +117,17 @@
                     data: formDataObj,
                     dataType: "json",
                     success: function (response) {
-
+                        const formatter = new Intl.NumberFormat('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                        });
                         $("#review-upload-table tr").remove();
                         response.mappedUploadRows.forEach(function (item) {
                             const trHtml = '<tr><td>' + item.date[1] + '/' + item.date[2] + '/' + item.date[0] + '</td>' +
-                                '<td>' + item.memo + '</td><td>' + item.debit + '</td></tr>';
+                                '<td>' + item.memo + '</td><td>' + formatter.format(item.debit) + '</td></tr>';
                             $("#review-upload-table").append(trHtml);
                         });
-
-
                         $("#finalize-upload").attr('action', "uploads/" + response.uploadId + "/finalize");
-
                         $('#finalize-upload-wrapper').show(500);
                     }
                 });
@@ -199,7 +191,13 @@
         });
     </script>
     <script type="text/javascript">
-        function populateAccounts() {
+        function populateTables() {
+            populateAccountsTable();
+            populateTransactionsTable()
+        }
+    </script>
+    <script type="text/javascript">
+        function populateAccountsTable() {
             $.ajax({
                 type: "GET",
                 url: "accounts",
@@ -213,6 +211,34 @@
                     }
                 }
             });
+        }
+    </script>
+    <script type="text/javascript">
+        function populateTransactionsTable() {
+            $.ajax({
+                type: "GET",
+                url: "/transactions",
+                dataType: "json",
+                success: function (response) {
+                    if (response !== undefined && response.length >= 0) {
+                        $("#review-upload-table tr").remove();
+                        $.each(response, function (i, item) {
+                            appendTransactionToTransactionsTable(item);
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function appendTransactionToTransactionsTable(item) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+            });
+            const trHtml = '<tr><td>' + item.date[1] + '/' + item.date[2] + '/' + item.date[0] + '</td>' +
+                '<td>' + item.memo + '</td><td>' + formatter.format(item.amount) + '</td></tr>';
+            $("#transactions-table").append(trHtml);
         }
     </script>
     <script type="text/javascript">
@@ -250,7 +276,7 @@
     </script>
 </head>
 
-<body onload="populateAccounts();">
+<body onload="populateTables();">
 <div class="col-sm-8 col-sm-offset-2">
     <header role="banner">
         <h1>Budget: Net Worth</h1>
@@ -387,7 +413,18 @@
     </div>
 
     <div hidden id="transactions-page">
-        Transactions Here!
+        <table class="table" id="transactions-table">
+            <thead>
+            <tr>
+                <th>Transaction Date</th>
+                <th>Memo</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
 </div>

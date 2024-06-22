@@ -16,7 +16,7 @@ public class UploadRowDbManager {
     private final Jdbi jdbi;
 
     @Inject
-    UploadRowDbManager(@GuiceJdbi Jdbi jdbi) {
+    public UploadRowDbManager(@GuiceJdbi Jdbi jdbi) {
         this.jdbi = jdbi;
     }
 
