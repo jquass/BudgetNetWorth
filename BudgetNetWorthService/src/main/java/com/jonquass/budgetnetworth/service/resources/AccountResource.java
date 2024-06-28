@@ -4,9 +4,11 @@ import com.google.inject.Inject;
 import com.hubspot.algebra.Result;
 import com.jonquass.budgetnetworth.core.account.Account;
 import com.jonquass.budgetnetworth.core.account.AccountEgg;
+import com.jonquass.budgetnetworth.core.transaction.Transaction;
 import com.jonquass.budgetnetworth.core.upload.UploadContext;
 import com.jonquass.budgetnetworth.data.csv.CsvReader;
 import com.jonquass.budgetnetworth.data.jdbi.account.AccountDbManager;
+import com.jonquass.budgetnetworth.data.jdbi.transaction.TransactionDbManager;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.slf4j.Logger;
@@ -23,31 +25,30 @@ public class AccountResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountResource.class);
 
-    private static final int LIST_LIMIT = 100;
-
     private final AccountDbManager accountDbManager;
     private final CsvReader csvReader;
+    private final TransactionDbManager transactionDbManager;
 
     @Inject
     public AccountResource(AccountDbManager accountDbManager,
-                           CsvReader csvReader
+                           CsvReader csvReader,
+                           TransactionDbManager transactionDbManager
     ) {
         this.accountDbManager = accountDbManager;
         this.csvReader = csvReader;
+        this.transactionDbManager = transactionDbManager;
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Account createAccountAjax(@FormParam("account-name") String accountName) {
-        AccountEgg accountEgg = AccountEgg.builder().setAccountName(accountName).build();
+    public Account createAccountAjax(AccountEgg accountEgg) {
         Account account = accountDbManager.insert(accountEgg);
         LOG.info("Created Account ID: {}", account.getId());
         return account;
     }
 
     @GET
-    public List<Account> getAccounts() {
-        return accountDbManager.list(LIST_LIMIT);
+    public List<Account> getAccounts(@QueryParam("limit") @DefaultValue("100") int limit) {
+        return accountDbManager.list(limit);
     }
 
     @DELETE
@@ -57,10 +58,17 @@ public class AccountResource {
     }
 
     @POST
-    @Path("/{id}/stage-upload")
+    @Path("/{accountId}/stage-upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Optional<UploadContext> stageUploadAjax(@PathParam("id") long accountId,
+    public Optional<UploadContext> stageUploadAjax(@PathParam("accountId") long accountId,
                                                    File transactionsFile) {
         return csvReader.stageUpload(accountId, transactionsFile);
+    }
+
+    @GET
+    @Path("/{id}/transactions")
+    public List<Transaction> getTransactions(@PathParam("id") long accountId,
+                                             @QueryParam("limit") @DefaultValue("100") int limit) {
+        return transactionDbManager.listForAccount(accountId, limit);
     }
 }

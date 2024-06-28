@@ -32,6 +32,9 @@ public interface TransactionDao {
     @SqlQuery("SELECT * FROM transactions WHERE id = :id")
     Optional<Transaction> get(@Bind("id") long id);
 
-    @SqlQuery("SELECT * FROM transactions ORDER BY id LIMIT :limit")
+    @SqlQuery("SELECT * FROM transactions WHERE account_id = :account_id ORDER BY id LIMIT :limit")
+    List<Transaction> list(@Bind("account_id") long accountId, @Bind("limit") int limit);
+
+    @SqlQuery("SELECT * FROM transactions ORDER BY date DESC LIMIT :limit")
     List<Transaction> list(@Bind("limit") int limit);
 }
