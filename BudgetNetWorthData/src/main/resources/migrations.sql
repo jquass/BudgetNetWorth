@@ -6,4 +6,3 @@ CREATE TABLE accounts(
     email VARCHAR(320) NOT NULL
 );
 
-

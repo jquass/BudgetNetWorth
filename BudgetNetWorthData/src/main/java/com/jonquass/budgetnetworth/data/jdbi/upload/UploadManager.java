@@ -1,6 +1,5 @@
 package com.jonquass.budgetnetworth.data.jdbi.upload;
 
-import com.jonquass.budgetnetworth.core.transaction.Transaction;
 import com.jonquass.budgetnetworth.core.transaction.TransactionEgg;
 import com.jonquass.budgetnetworth.core.upload.Upload;
 import com.jonquass.budgetnetworth.core.upload.UploadContext;
@@ -98,7 +97,7 @@ public class UploadManager {
                     .setMemo(mappedUploadRow.getMemo())
                     .setAmount(mappedUploadRow.getDebit())
                     .build();
-            Transaction transaction = transactionDbManager.insert(transactionEgg);
+            transactionDbManager.insert(transactionEgg);
         }
 
         uploadDbManager.updateStatus(uploadId, UploadStatus.COMPLETE);

@@ -40,9 +40,7 @@ public class AccountResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Account createAccountAjax(@FormParam("account-name") String accountName) {
-        AccountEgg accountEgg = AccountEgg.builder().setAccountName(accountName).build();
+    public Account createAccountAjax(AccountEgg accountEgg) {
         Account account = accountDbManager.insert(accountEgg);
         LOG.info("Created Account ID: {}", account.getId());
         return account;
@@ -60,9 +58,9 @@ public class AccountResource {
     }
 
     @POST
-    @Path("/{id}/stage-upload")
+    @Path("/{accountId}/stage-upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Optional<UploadContext> stageUploadAjax(@PathParam("id") long accountId,
+    public Optional<UploadContext> stageUploadAjax(@PathParam("accountId") long accountId,
                                                    File transactionsFile) {
         return csvReader.stageUpload(accountId, transactionsFile);
     }

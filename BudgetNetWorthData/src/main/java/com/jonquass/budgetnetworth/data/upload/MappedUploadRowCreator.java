@@ -75,6 +75,7 @@ public class MappedUploadRowCreator {
                 column++;
             }
 
+
             mappedUploadRows.add(builder.build());
         }
         return mappedUploadRows;

@@ -1,11 +1,14 @@
 package com.jonquass.budgetnetworth.service.resources;
 
 import com.jonquass.budgetnetworth.core.upload.UploadContext;
+import com.jonquass.budgetnetworth.core.upload.header.UploadHeaderMapping;
+import com.jonquass.budgetnetworth.data.csv.CsvReader;
 import com.jonquass.budgetnetworth.data.jdbi.upload.UploadManager;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 
+import java.io.File;
 import java.util.Optional;
 
 @Path("/uploads")
@@ -13,10 +16,12 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class UploadResource {
 
+    private final CsvReader csvReader;
     private final UploadManager uploadManager;
 
     @Inject
-    UploadResource(UploadManager uploadManager) {
+    UploadResource(CsvReader csvReader, UploadManager uploadManager) {
+        this.csvReader = csvReader;
         this.uploadManager = uploadManager;
     }
 
@@ -27,14 +32,24 @@ public class UploadResource {
     }
 
     @POST
+    @Path("/account/{account-id}")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Optional<UploadContext> createUpload(@PathParam("account-id") long accountId,
+                                                File file) {
+        return csvReader.stageUpload(accountId, file);
+    }
+
+    @POST
     @Path("/{id}/map-headers")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Optional<UploadContext> mapHeadersAjax(@PathParam("id") long uploadId,
-                                                  @FormParam("transaction-date-header") long transactionDateHeaderId,
-                                                  @FormParam("memo-header") long memoHeaderId,
-                                                  @FormParam("debit-header") long debitHeaderId,
-                                                  @FormParam("credit-header") Optional<Long> creditHeaderId) {
-        return uploadManager.mapHeaders(uploadId, transactionDateHeaderId, memoHeaderId, debitHeaderId, creditHeaderId);
+                                                  UploadHeaderMapping uploadHeaderMapping) {
+        return uploadManager.mapHeaders(
+                uploadId,
+                uploadHeaderMapping.getTransactionDateHeaderId(),
+                uploadHeaderMapping.getMemoHeaderId(),
+                uploadHeaderMapping.getDebitHeaderId(),
+                uploadHeaderMapping.getCreditHeaderId()
+        );
     }
 
     @POST
