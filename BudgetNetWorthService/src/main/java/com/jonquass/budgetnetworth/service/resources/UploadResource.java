@@ -26,6 +26,12 @@ public class UploadResource {
     }
 
     @GET
+    @Path("/in-progress/context")
+    public Optional<UploadContext> getInProgressContext() {
+        return uploadManager.getUploadContextInProgress();
+    }
+
+    @GET
     @Path("/{id}/context")
     public Optional<UploadContext> getContext(@PathParam("id") long uploadId) {
         return uploadManager.getUploadContext(uploadId);

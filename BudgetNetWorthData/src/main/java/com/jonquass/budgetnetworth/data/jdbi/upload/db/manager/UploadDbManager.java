@@ -9,6 +9,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Singleton
@@ -32,10 +34,32 @@ public class UploadDbManager {
         return jdbi.withExtension(UploadDao.class, dao -> dao.get(id));
     }
 
+    public int delete(long id) {
+        return 0;
+    }
+
+    public Optional<Upload> getInProgress() {
+        return jdbi.withExtension(UploadDao.class, UploadDao::getInProgress);
+    }
+
     public void updateStatus(long id, UploadStatus uploadStatus) {
         jdbi.withExtension(UploadDao.class, dao -> {
             dao.updateStatus(id, uploadStatus);
             return null;
+        });
+    }
+
+    public List<Upload> getAllForAccount(long accountId) {
+        return jdbi.withExtension(UploadDao.class, dao -> {
+            List<Upload> uploads = new ArrayList<>();
+            long offset = 0;
+            List<Upload> uploadBatch = dao.getBatchForAccount(accountId, offset, 100);
+            while (!uploadBatch.isEmpty()) {
+                uploads.addAll(uploadBatch);
+                offset = uploadBatch.getLast().getId();
+                uploadBatch = dao.getBatchForAccount(accountId, offset, 100);
+            }
+            return uploads;
         });
     }
 }

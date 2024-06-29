@@ -28,4 +28,7 @@ public interface UploadHeaderDao {
 
     @SqlUpdate("UPDATE upload_headers SET type = null WHERE upload_id = :upload_id")
     void unmapHeadersForUpload(@Bind("upload_id") long uploadId);
+
+    @SqlUpdate("DELETE FROM upload_headers WHERE upload_id = :upload_id LIMIT :limit")
+    int delete(@Bind("upload_id") long uploadId, @Bind("limit") int limit);
 }

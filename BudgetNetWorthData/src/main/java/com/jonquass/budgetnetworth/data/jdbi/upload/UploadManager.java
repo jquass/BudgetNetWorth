@@ -45,15 +45,19 @@ public class UploadManager {
         this.uploadHeaderCreator = uploadHeaderCreator;
     }
 
+    public Optional<UploadContext> getUploadContextInProgress() {
+        Optional<Upload> upload = uploadDbManager.getInProgress();
+        return upload.flatMap(this::buildUploadContext);
+    }
+
     public Optional<UploadContext> getUploadContext(long uploadId) {
         Optional<Upload> uploadOptional = uploadDbManager.get(uploadId);
-        if (uploadOptional.isEmpty()) {
-            return Optional.empty();
-        }
+        return uploadOptional.flatMap(this::buildUploadContext);
+    }
 
-        Upload upload = uploadOptional.get();
-        List<UploadHeader> uploadHeaders = uploadHeaderDbManager.getAllForUploadId(uploadId);
-        List<UploadRow> uploadRows = uploadRowDbManager.getAllForUploadId(uploadId);
+    private Optional<UploadContext> buildUploadContext(Upload upload) {
+        List<UploadHeader> uploadHeaders = uploadHeaderDbManager.getAllForUploadId(upload.getId());
+        List<UploadRow> uploadRows = uploadRowDbManager.getAllForUploadId(upload.getId());
         List<MappedUploadRow> mappedUploadRows;
         if (upload.getUploadStatus() != UploadStatus.STAGING) {
             mappedUploadRows = mappedUploadRowCreator.mapUploadRows(uploadHeaders, uploadRows);

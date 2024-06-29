@@ -16,8 +16,8 @@ public interface TransactionDao {
     @GetGeneratedKeys
     @SqlUpdate(
             """
-                    INSERT INTO transactions (date, memo, amount, account_id, upload_id, upload_row_id)
-                    VALUES (:date, :memo, :amount, :account_id, :upload_id, upload_row_id)
+                    REPLACE INTO transactions (date, memo, amount, account_id, upload_id, upload_row_id)
+                    VALUES (:date, :memo, :amount, :account_id, :upload_id, upload_row_id);
                     """
     )
     long insert(
@@ -37,4 +37,7 @@ public interface TransactionDao {
 
     @SqlQuery("SELECT * FROM transactions ORDER BY date DESC LIMIT :limit")
     List<Transaction> list(@Bind("limit") int limit);
+
+    @SqlUpdate("DELETE FROM transactions WHERE account_id = :account_id LIMIT :limit")
+    int delete(@Bind("account_id") long accountId, @Bind("limit") int limit);
 }

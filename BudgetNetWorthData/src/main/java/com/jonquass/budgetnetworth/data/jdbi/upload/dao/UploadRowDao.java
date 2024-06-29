@@ -22,4 +22,7 @@ public interface UploadRowDao {
 
     @SqlQuery("SELECT * FROM upload_rows WHERE upload_id = :upload_id")
     List<UploadRow> getAllForUploadId(@Bind("upload_id") long uploadId);
+
+    @SqlUpdate("DELETE FROM upload_rows WHERE upload_id = :upload_id LIMIT :limit")
+    int delete(@Bind("upload_id") long uploadId, @Bind("limit") int limit);
 }

@@ -12,6 +12,8 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class BudgetNetWorthDataModule extends AbstractJdbiDefinitionModule {
 
+    public static final int DELETE_BATCH_SIZE = 1000;
+
     @Inject
     public BudgetNetWorthDataModule() {
         super(GuiceJdbi.class);

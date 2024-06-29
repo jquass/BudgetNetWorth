@@ -12,6 +12,8 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
+import static com.jonquass.budgetnetworth.data.BudgetNetWorthDataModule.DELETE_BATCH_SIZE;
+
 @Singleton
 public class UploadHeaderDbManager {
 
@@ -44,6 +46,18 @@ public class UploadHeaderDbManager {
         jdbi.withExtension(UploadHeaderDao.class, dao -> {
             dao.unmapHeadersForUpload(uploadId);
             return null;
+        });
+    }
+
+    public int deleteAllForUploadId(long uploadId) {
+        return jdbi.withExtension(UploadHeaderDao.class, dao -> {
+            int totalDeleted = 0;
+            int deleted;
+            do {
+                deleted = dao.delete(uploadId, DELETE_BATCH_SIZE);
+                totalDeleted += deleted;
+            } while (deleted > 0);
+            return totalDeleted;
         });
     }
 

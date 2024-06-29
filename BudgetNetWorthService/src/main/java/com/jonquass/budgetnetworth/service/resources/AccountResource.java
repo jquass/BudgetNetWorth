@@ -6,6 +6,7 @@ import com.jonquass.budgetnetworth.core.account.Account;
 import com.jonquass.budgetnetworth.core.account.AccountEgg;
 import com.jonquass.budgetnetworth.core.transaction.Transaction;
 import com.jonquass.budgetnetworth.core.upload.UploadContext;
+import com.jonquass.budgetnetworth.data.account.AccountDeleter;
 import com.jonquass.budgetnetworth.data.csv.CsvReader;
 import com.jonquass.budgetnetworth.data.jdbi.account.AccountDbManager;
 import com.jonquass.budgetnetworth.data.jdbi.transaction.TransactionDbManager;
@@ -26,15 +27,18 @@ public class AccountResource {
     private static final Logger LOG = LoggerFactory.getLogger(AccountResource.class);
 
     private final AccountDbManager accountDbManager;
+    private final AccountDeleter accountDeleter;
     private final CsvReader csvReader;
     private final TransactionDbManager transactionDbManager;
 
     @Inject
     public AccountResource(AccountDbManager accountDbManager,
+                           AccountDeleter accountDeleter,
                            CsvReader csvReader,
                            TransactionDbManager transactionDbManager
     ) {
         this.accountDbManager = accountDbManager;
+        this.accountDeleter = accountDeleter;
         this.csvReader = csvReader;
         this.transactionDbManager = transactionDbManager;
     }
@@ -54,7 +58,7 @@ public class AccountResource {
     @DELETE
     @Path("/{id}")
     public Result<String, String> delete(@PathParam("id") long id) {
-        return accountDbManager.delete(id);
+        return accountDeleter.delete(id);
     }
 
     @POST

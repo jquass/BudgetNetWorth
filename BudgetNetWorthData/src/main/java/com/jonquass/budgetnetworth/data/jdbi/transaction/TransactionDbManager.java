@@ -8,6 +8,9 @@ import jakarta.inject.Singleton;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.jonquass.budgetnetworth.data.BudgetNetWorthDataModule.DELETE_BATCH_SIZE;
 
 @Singleton
 public class TransactionDbManager {
@@ -19,7 +22,7 @@ public class TransactionDbManager {
         this.jdbi = jdbi;
     }
 
-    public Transaction insert(TransactionEgg transactionEgg) {
+    public Optional<Transaction> insert(TransactionEgg transactionEgg) {
         return jdbi.withExtension(TransactionDao.class, dao -> {
             long id = dao.insert(
                     transactionEgg.getDate(),
@@ -29,7 +32,7 @@ public class TransactionDbManager {
                     transactionEgg.getUploadId(),
                     transactionEgg.getUploadRowId()
             );
-            return dao.get(id).orElseThrow();
+            return dao.get(id);
         });
     }
 
@@ -41,4 +44,15 @@ public class TransactionDbManager {
         return jdbi.withExtension(TransactionDao.class, dao -> dao.list(limit));
     }
 
+    public int deleteForAccount(long accountId) {
+        return jdbi.withExtension(TransactionDao.class, dao -> {
+            int totalDeleted = 0;
+            int deleted;
+            do {
+                deleted = dao.delete(accountId, DELETE_BATCH_SIZE);
+                totalDeleted += deleted;
+            } while (deleted > 0);
+            return totalDeleted;
+        });
+    }
 }
