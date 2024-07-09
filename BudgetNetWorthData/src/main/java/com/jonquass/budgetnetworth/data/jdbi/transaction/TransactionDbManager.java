@@ -30,10 +30,15 @@ public class TransactionDbManager {
                     transactionEgg.getAmount(),
                     transactionEgg.getAccountId(),
                     transactionEgg.getUploadId(),
-                    transactionEgg.getUploadRowId()
+                    transactionEgg.getUploadRowId(),
+                    Optional.empty()
             );
             return dao.get(id);
         });
+    }
+
+    public Optional<Transaction> get(long id) {
+        return jdbi.withExtension(TransactionDao.class, dao -> dao.get(id));
     }
 
     public List<Transaction> listForAccount(long accountId, int limit) {
@@ -54,5 +59,9 @@ public class TransactionDbManager {
             } while (deleted > 0);
             return totalDeleted;
         });
+    }
+
+    public void updateBudgetId(long transactionId, long budgetId) {
+        jdbi.withExtension(TransactionDao.class, dao -> dao.updateBudgetId(transactionId, budgetId));
     }
 }

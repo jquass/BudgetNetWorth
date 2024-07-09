@@ -16,8 +16,8 @@ public interface TransactionDao {
     @GetGeneratedKeys
     @SqlUpdate(
             """
-                    REPLACE INTO transactions (date, memo, amount, account_id, upload_id, upload_row_id)
-                    VALUES (:date, :memo, :amount, :account_id, :upload_id, upload_row_id);
+                    REPLACE INTO transactions (date, memo, amount, account_id, upload_id, upload_row_id, budget_id)
+                    VALUES (:date, :memo, :amount, :account_id, :upload_id, :upload_row_id, :budget_id);
                     """
     )
     long insert(
@@ -26,7 +26,9 @@ public interface TransactionDao {
             @Bind("amount") BigDecimal amount,
             @Bind("account_id") long accountId,
             @Bind("upload_id") Optional<Long> uploadId,
-            @Bind("upload_row_id") Optional<Long> uploadRowId
+            @Bind("upload_row_id") Optional<Long> uploadRowId,
+            @Bind("budget_id") Optional<Long> budgetId
+
     );
 
     @SqlQuery("SELECT * FROM transactions WHERE id = :id")
@@ -40,4 +42,7 @@ public interface TransactionDao {
 
     @SqlUpdate("DELETE FROM transactions WHERE account_id = :account_id LIMIT :limit")
     int delete(@Bind("account_id") long accountId, @Bind("limit") int limit);
+
+    @SqlUpdate("UPDATE transactions SET budget_id = :budget_id WHERE id = :id")
+    int updateBudgetId(@Bind("id") long accountId, @Bind("budget_id") long budgetId);
 }
