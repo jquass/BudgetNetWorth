@@ -25,6 +25,9 @@ public class TransactionMapper implements RowMapper<Transaction> {
         if (rs.getString("upload_row_id") != null) {
             transactionBuilder.setUploadRowId(rs.getLong("upload_row_id"));
         }
+        if (rs.getString("budget_id") != null) {
+            transactionBuilder.setBudgetId(rs.getLong("budget_id"));
+        }
         return transactionBuilder.build();
     }
 

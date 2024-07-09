@@ -17,4 +17,6 @@ public interface TransactionFields {
     Optional<Long> getUploadId();
 
     Optional<Long> getUploadRowId();
+
+    Optional<Long> getBudgetId();
 }
