@@ -1,6 +1,7 @@
 package com.jonquass.budgetnetworth.service.resources;
 
 import com.jonquass.budgetnetworth.core.transaction.Transaction;
+import com.jonquass.budgetnetworth.data.budget.BudgetTransactionManager;
 import com.jonquass.budgetnetworth.data.jdbi.transaction.TransactionDbManager;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -19,10 +20,12 @@ public class TransactionsResource {
     private static final Logger LOG = LoggerFactory.getLogger(TransactionsResource.class);
 
     private final TransactionDbManager transactionDbManager;
+    private final BudgetTransactionManager budgetTransactionManager;
 
     @Inject
-    public TransactionsResource(TransactionDbManager transactionDbManager) {
+    public TransactionsResource(TransactionDbManager transactionDbManager, BudgetTransactionManager budgetTransactionManager) {
         this.transactionDbManager = transactionDbManager;
+        this.budgetTransactionManager = budgetTransactionManager;
     }
 
     @GET
@@ -38,10 +41,18 @@ public class TransactionsResource {
 
     @PUT
     @Path("/{transactionId}")
-    public Transaction updateTransaction(@PathParam("transactionId") long transactionId, @QueryParam("budgetId") long budgetId) {
+    public Optional<Transaction> updateTransactionBudgetId(
+            @PathParam("transactionId") long transactionId,
+            @QueryParam("budgetId") Optional<Long> budgetId
+    ) {
+        Optional<Transaction> transaction = transactionDbManager.get(transactionId);
+        if (transaction.isEmpty()) {
+            return Optional.empty();
+        }
+
         LOG.info("Updating transaction with id {} and budget {}", transactionId, budgetId);
-        transactionDbManager.updateBudgetId(transactionId, budgetId);
-        return transactionDbManager.get(transactionId).orElseThrow();
+        budgetTransactionManager.updateBudgetId(transaction.get(), budgetId);
+        return transactionDbManager.get(transactionId);
     }
 
 }

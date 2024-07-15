@@ -27,6 +27,10 @@ public class BudgetDbManager {
         });
     }
 
+    public Optional<Budget> get(long id) {
+        return jdbi.withExtension(BudgetDao.class, dao -> dao.get(id));
+    }
+
     public List<Budget> list() {
         return jdbi.withExtension(BudgetDao.class, BudgetDao::list);
     }

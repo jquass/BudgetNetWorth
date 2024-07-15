@@ -61,7 +61,7 @@ public class TransactionDbManager {
         });
     }
 
-    public void updateBudgetId(long transactionId, long budgetId) {
+    public void updateBudgetId(long transactionId, Optional<Long> budgetId) {
         jdbi.withExtension(TransactionDao.class, dao -> dao.updateBudgetId(transactionId, budgetId));
     }
 }

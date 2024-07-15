@@ -15,10 +15,7 @@ public interface BudgetDao {
 
     @GetGeneratedKeys
     @SqlUpdate(
-            """
-                    INSERT INTO budgets (budget_name, amount, month_period, start_month, start_year, stop_month, stop_year, stop_amount)
-                    VALUES (:budgetName, :amount, :monthPeriod, :startMonth, :startYear, :stopMonth, :stopYear, :stopAmount);
-                    """
+            "INSERT INTO budgets (budget_name, monthly_amount) VALUES (:budgetName, :monthlyAmount)"
     )
     long insert(@BindBean BudgetEgg budget);
 
