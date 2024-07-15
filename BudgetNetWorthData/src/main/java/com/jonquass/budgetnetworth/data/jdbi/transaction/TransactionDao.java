@@ -44,5 +44,5 @@ public interface TransactionDao {
     int delete(@Bind("account_id") long accountId, @Bind("limit") int limit);
 
     @SqlUpdate("UPDATE transactions SET budget_id = :budget_id WHERE id = :id")
-    int updateBudgetId(@Bind("id") long accountId, @Bind("budget_id") long budgetId);
+    int updateBudgetId(@Bind("id") long accountId, @Bind("budget_id") Optional<Long> budgetId);
 }
